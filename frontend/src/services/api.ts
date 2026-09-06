@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { SchedulePayload } from '../types';
 
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 'https://email-generator-5q8b.onrender.com';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
