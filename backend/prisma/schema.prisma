@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String           @id @default(uuid())
+  googleId        String           @unique
+  name            String
+  email           String           @unique
+  avatarUrl       String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  emailJobs       EmailJob[]
+  senders         Sender[]
+  slackConnection SlackConnection?
+
+  @@index([googleId])
+  @@index([email])
+}
+
+model Sender {
+  id        String     @id @default(uuid())
+  userId    String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  email     String
+  host      String?
+  port      Int?
+  smtpUser  String?
+  smtpPass  String?
+  isDefault Boolean    @default(false)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  emailJobs EmailJob[]
+
+  @@index([userId])
+  @@index([email])
+}
+
+model EmailJob {
+  id             String    @id @default(uuid())
+  userId         String
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  senderId       String
+  sender         Sender    @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  recipientEmail String
+  subject        String
+  body           String
+  scheduledAt    DateTime
+  sentAt         DateTime?
+  status         String    @default("scheduled")
+  hourlyLimit    Int?
+  idempotencyKey String    @unique
+  bullmqJobId    String?
+  errorMessage   String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([senderId])
+  @@index([status])
+  @@index([scheduledAt])
+  @@index([recipientEmail])
+}
+
+model SlackConnection {
+  id             String   @id @default(uuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slackUserId    String
+  teamId         String
+  teamName       String?
+  accessToken    String
+  botAccessToken String?
+  channelId      String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([userId])
+  @@index([teamId])
+}
