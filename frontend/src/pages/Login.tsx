@@ -3,11 +3,11 @@ import { Mail, ShieldCheck, Zap, Bell, Search, ArrowRight } from 'lucide-react';
 
 export const Login: React.FC = () => {
   const handleGoogleLogin = () => {
-    window.location.href = 'https://email-generator-5q8b.onrender.com/auth/google';
+    window.location.href = 'http://localhost:5000/auth/google';
   };
 
   const handleDevLogin = () => {
-    window.location.href = 'https://email-generator-5q8b.onrender.com/auth/dev-login';
+  window.location.href = 'http://localhost:5000/auth/dev-login';
   };
 
   return (

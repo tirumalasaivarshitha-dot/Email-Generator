@@ -17,6 +17,8 @@ import { setupBullBoard } from './config/bullBoard';
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 // Enable CORS with credentials for frontend
 app.use(
   cors({
