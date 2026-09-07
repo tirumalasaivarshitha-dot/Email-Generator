@@ -2,13 +2,13 @@ import React from 'react';
 import { Mail, ShieldCheck, Zap, Bell, Search, ArrowRight } from 'lucide-react';
 
 export const Login: React.FC = () => {
-  const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:5000/auth/google';
-  };
+ const handleGoogleLogin = () => {
+  window.location.href = 'https://email-generator-5q8b.onrender.com/auth/google';
+};
 
-  const handleDevLogin = () => {
-  window.location.href = 'http://localhost:5000/auth/dev-login';
-  };
+const handleDevLogin = () => {
+  window.location.href = 'https://email-generator-5q8b.onrender.com/auth/dev-login';
+};
 
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
